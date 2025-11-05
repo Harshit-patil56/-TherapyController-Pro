@@ -1,6 +1,20 @@
 {
   "version": 2,
+  "builds": [
+    {
+      "src": "**",
+      "use": "@vercel/static"
+    }
+  ],
   "routes": [
+    {
+      "src": "/styles-pro.css",
+      "dest": "/styles-pro.css"
+    },
+    {
+      "src": "/script-pro.js",
+      "dest": "/script-pro.js"
+    },
     {
       "src": "/(.*)",
       "dest": "/index.html"
