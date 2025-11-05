@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TherapyController - Choose Version</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .version-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .version-card {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .version-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-color: #667eea;
+        }
+
+        .version-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #10b981;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .version-badge.pro {
+            background: linear-gradient(135deg, #ffd700, #ffb347);
+        }
+
+        .version-card h2 {
+            color: #1f2937;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .version-card p {
+            color: #6b7280;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .features {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .features li {
+            padding: 8px 0;
+            color: #4b5563;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .features li:before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .launch-btn {
+            display: block;
+            width: 100%;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .launch-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .launch-btn.basic {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
+
+        .info-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .info-box h3 {
+            color: #92400e;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-box p {
+            color: #78350f;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .version-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎮 TherapyController</h1>
+            <p>Transform Your Game Controller into a Therapeutic Massage Device</p>
+        </div>
+
+        <div class="content">
+            <div class="info-box">
+                <h3>⚡ Quick Start</h3>
+                <p>Connect your game controller (Xbox, PlayStation, Cosmic Byte, etc.) and choose the version that suits your needs. Both versions work with the same controller vibration API.</p>
+            </div>
+
+            <div class="version-grid">
+                <!-- Basic Version -->
+                <div class="version-card">
+                    <span class="version-badge">v1.0</span>
+                    <h2>Basic Version</h2>
+                    <p>Simple and straightforward vibration tester with essential massage patterns.</p>
+                    
+                    <ul class="features">
+                        <li>Quick test patterns</li>
+                        <li>Custom vibration controls</li>
+                        <li>Basic massage modes</li>
+                        <li>Button status display</li>
+                        <li>Activity logging</li>
+                    </ul>
+
+                    <a href="index.html" class="launch-btn basic">Launch Basic Version</a>
+                </div>
+
+                <!-- Pro Version -->
+                <div class="version-card">
+                    <span class="version-badge pro">PRO v2.0</span>
+                    <h2>Professional Version</h2>
+                    <p>Industry-grade interface with advanced therapy programs and real-time monitoring.</p>
+                    
+                    <ul class="features">
+                        <li>Modern UI with dark/light themes</li>
+                        <li>12 therapeutic programs</li>
+                        <li>Real-time session monitoring</li>
+                        <li>Session history tracking</li>
+                        <li>Safety controls & settings</li>
+                        <li>Responsive mobile design</li>
+                    </ul>
+
+                    <a href="index-pro.html" class="launch-btn">Launch Pro Version ⭐</a>
+                </div>
+            </div>
+
+            <div class="info-box" style="background: #dbeafe; border-left-color: #3b82f6;">
+                <h3 style="color: #1e3a8a;">💡 Recommended</h3>
+                <p style="color: #1e40af;">We recommend the <strong>Pro Version</strong> for the best experience with advanced features, beautiful UI, and comprehensive therapy programs. The Basic Version is great for quick testing.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

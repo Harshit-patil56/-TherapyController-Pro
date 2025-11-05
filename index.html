@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TherapyController Pro - Professional Massage Therapy System</title>
+    <link rel="stylesheet" href="styles-pro.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="theme-light">
+    <div class="app-container">
+        <!-- Header Navigation -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <i class="fas fa-spa logo-icon"></i>
+                    <h1 class="app-title">TherapyController Pro</h1>
+                    <span class="version-badge">v2.0</span>
+                </div>
+                
+                <nav class="nav-tabs">
+                    <button class="nav-tab active" data-tab="therapy">
+                        <i class="fas fa-heart-pulse"></i>
+                        <span>Therapy</span>
+                    </button>
+                    <button class="nav-tab" data-tab="settings">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </button>
+                </nav>
+
+                <div class="header-controls">
+                    <button class="help-btn" id="quick-help-btn" title="Quick help">
+                        <i class="fas fa-question-circle"></i>
+                    </button>
+                    <div class="connection-status" id="connection-status">
+                        <div class="status-indicator offline"></div>
+                        <span class="status-text">Disconnected</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Therapy Tab -->
+            <div class="tab-content active" id="therapy-tab">
+                <div class="therapy-layout">
+                    <!-- Control Panel -->
+                    <aside class="control-panel">
+                        <div class="panel-header">
+                            <h2><i class="fas fa-gamepad"></i> Controller Status</h2>
+                        </div>
+                        
+                        <!-- Connection Instructions -->
+                        <div class="connection-prompt" id="connection-prompt">
+                            <div class="prompt-icon">
+                                <i class="fas fa-plug"></i>
+                            </div>
+                            <h3>Connect Your Controller</h3>
+                            <p>Press any button on your gamepad to connect</p>
+                            <div class="supported-controllers">
+                                <small>Supports: Xbox, PlayStation, Generic USB controllers</small>
+                            </div>
+                        </div>
+
+                        <div class="controller-info" id="controller-info" style="display: none;">
+                            <div class="info-card">
+                                <div class="info-item">
+                                    <span class="info-label">Device:</span>
+                                    <span class="info-value" id="device-name">Not Connected</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Battery:</span>
+                                    <span class="info-value" id="battery-level">Unknown</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Vibration:</span>
+                                    <span class="info-value" id="vibration-support">Unknown</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="quick-actions">
+                            <h3>Quick Actions</h3>
+                            <div class="action-grid">
+                                <button class="action-btn emergency-stop" id="emergency-stop" title="Stop all vibrations immediately">
+                                    <i class="fas fa-stop"></i>
+                                    <span>Emergency Stop</span>
+                                </button>
+                                <button class="action-btn test-vibration" id="quick-test" title="Test controller vibration" disabled>
+                                    <i class="fas fa-vial"></i>
+                                    <span>Quick Test</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Session Info -->
+                        <div class="session-info">
+                            <h3>Current Session</h3>
+                            <div class="session-stats">
+                                <div class="stat-item">
+                                    <div class="stat-value" id="session-time">00:00</div>
+                                    <div class="stat-label">Duration</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value" id="pattern-count">0</div>
+                                    <div class="stat-label">Patterns Used</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tips -->
+                        <div class="panel-tips" id="panel-tips">
+                            <div class="tip-content">
+                                <i class="fas fa-lightbulb"></i>
+                                <p>Tip: Start with gentler programs and gradually increase intensity</p>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- Main Therapy Area -->
+                    <section class="therapy-area">
+                        <!-- Quick Filter -->
+                        <div class="therapy-filter">
+                            <button class="filter-btn active" data-filter="all">
+                                <i class="fas fa-th"></i>
+                                All Programs
+                            </button>
+                            <button class="filter-btn" data-filter="head">
+                                <i class="fas fa-brain"></i>
+                                Head & Neck
+                            </button>
+                            <button class="filter-btn" data-filter="body">
+                                <i class="fas fa-dumbbell"></i>
+                                Body & Muscle
+                            </button>
+                            <button class="filter-btn" data-filter="premium">
+                                <i class="fas fa-crown"></i>
+                                Premium
+                            </button>
+                        </div>
+
+                        <!-- Therapy Categories -->
+                        <div class="therapy-categories">
+                            <div class="category-header">
+                                <h2>Therapeutic Massage Programs</h2>
+                                <p>Choose from our professionally designed massage therapy programs</p>
+                            </div>
+
+                            <!-- Head Therapy -->
+                            <div class="therapy-category" data-category="head">
+                                <div class="category-title">
+                                    <i class="fas fa-brain category-icon head-icon"></i>
+                                    <div class="category-title-text">
+                                        <h3>Head & Neck Therapy</h3>
+                                        <span class="category-subtitle">Mental wellness and tension relief</span>
+                                    </div>
+                                </div>
+                                <div class="therapy-grid">
+                                    <div class="therapy-card" data-therapy="head-tension" data-category="head">
+                                        <div class="card-header">
+                                            <i class="fas fa-hand-peace"></i>
+                                            <h4>Tension Relief</h4>
+                                        </div>
+                                        <p class="card-description">Gentle pulsing patterns to relieve head and neck tension. Perfect for stress headaches and daily tension.</p>
+                                        <div class="card-meta">
+                                            <span class="duration"><i class="fas fa-clock"></i> 8-12 min</span>
+                                            <span class="intensity low"><i class="fas fa-signal"></i> Gentle</span>
+                                        </div>
+                                        <div class="card-tags">
+                                            <span class="tag">Stress Relief</span>
+                                            <span class="tag">Daily Use</span>
+                                        </div>
+                                        <button class="therapy-btn" disabled>
+                                            <span class="btn-text">Start Session</span>
+                                            <i class="fas fa-play btn-icon"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="therapy-card" data-therapy="head-migraine" data-category="head">
+                                        <div class="card-header">
+                                            <i class="fas fa-bandage"></i>
+                                            <h4>Migraine Relief</h4>
+                                        </div>
+                                        <p class="card-description">Ultra-gentle vibrations designed for headache relief</p>
+                                        <div class="card-meta">
+                                            <span class="duration"><i class="fas fa-clock"></i> 6-10 min</span>
+                                            <span class="intensity very-low"><i class="fas fa-signal"></i> Very Gentle</span>
+                                        </div>
+                                        <button class="therapy-btn" disabled>
+                                            <span class="btn-text">Start Session</span>
+                                            <i class="fas fa-play btn-icon"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="therapy-card" data-therapy="head-sleep">
+                                        <div class="card-header">
+                                            <i class="fas fa-moon"></i>
+                                            <h4>Sleep Inducer</h4>
+                                        </div>
+                                        <p class="card-description">Gradually decreasing patterns for relaxation and sleep</p>
+                                        <div class="card-meta">
+                                            <span class="duration"><i class="fas fa-clock"></i> 10-15 min</span>
+                                            <span class="intensity low"><i class="fas fa-signal"></i> Progressive</span>
+                                        </div>
+                                        <button class="therapy-btn" disabled>
+                                            <span class="btn-text">Start Session</span>
+                                            <i class="fas fa-play btn-icon"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="therapy-card" data-therapy="head-focus">
+                                        <div class="card-header">
+                                            <i class="fas fa-bullseye"></i>
+                                            <h4>Focus Booster</h4>
+                                        </div>
+                                        <p class="card-description">Rhythmic patterns to enhance concentration and clarity</p>
+                                        <div class="card-meta">
+                                            <span class="duration"><i class="fas fa-clock"></i> 5-8 min</span>
+                                            <span class="intensity medium"><i class="fas fa-signal"></i> Moderate</span>
+                                        </div>
+                                        <button class="therapy-btn" disabled>
+                                            <span class="btn-text">Start Session</span>
+                                            <i class="fas fa-play btn-icon"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Body Therapy -->
+                            <div class="therapy-category" data-category="body">
+                                <div class="category-title">
+                                    <i class="fas fa-dumbbell category-icon body-icon"></i>
+                                    <div class="category-title-text">
+                                        <h3>Body & Muscle Therapy</h3>
+                                        <span class="category-subtitle">Physical recovery and muscle relief</span>
+                                    </div>
+                                </div>
+                                <div class="therapy-grid">
+                                    <div class="therapy-card" data-therapy="body-deep" data-category="body">
+                                        <div class="card-header">
+                                            <i class="fas fa-fist-raised"></i>
+                                            <h4>Deep Tissue</h4>
+                                        </div>
+                                        <p class="card-description">Intensive vibrations for deep muscle massage and knots</p>
+                                        <div class="card-meta">
+                                            <span class="duration"><i class="fas fa-clock"></i> 12-18 min</span>
+                                            <span class="intensity high"><i class="fas fa-signal"></i> Intense</span>
+                                        </div>
+                                        <button class="therapy-btn" disabled>
+                                            <span class="btn-text">Start Session</span>
+                                            <i class="fas fa-play btn-icon"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="therapy-card" data-therapy="body-relaxing" data-category="body">
+                                        <div class="card-header">
+                                            <i class="fas fa-leaf"></i>
+                                            <h4>Relaxing</h4>
+                                        </div>
+                                        <p class="card-description">Smooth wave patterns for general body relaxation</p>
+                                        <div class="card-meta">
+                                            <span class="duration"><i class="fas fa-clock"></i> 10-15 min</span>
+                                            <span class="intensity medium"><i class="fas fa-signal"></i> Moderate</span>
+                                        </div>
+                                        <button class="therapy-btn" disabled>
+                                            <span class="btn-text">Start Session</span>
+                                            <i class="fas fa-play btn-icon"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="therapy-card" data-therapy="body-sports" data-category="body">
+                                        <div class="card-header">
+                                            <i class="fas fa-running"></i>
+                                            <h4>Sports Recovery</h4>
+                                        </div>
+                                        <p class="card-description">Targeted patterns for post-workout muscle recovery</p>
+                                        <div class="card-meta">
+                                            <span class="duration"><i class="fas fa-clock"></i> 15-20 min</span>
+                                            <span class="intensity high"><i class="fas fa-signal"></i> Athletic</span>
+                                        </div>
+                                        <button class="therapy-btn" disabled>
+                                            <span class="btn-text">Start Session</span>
+                                            <i class="fas fa-play btn-icon"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="therapy-card" data-therapy="body-stress" data-category="body">
+                                        <div class="card-header">
+                                            <i class="fas fa-zen"></i>
+                                            <h4>Stress Relief</h4>
+                                        </div>
+                                        <p class="card-description">Gentle patterns designed to reduce stress and anxiety</p>
+                                        <div class="card-meta">
+                                            <span class="duration"><i class="fas fa-clock"></i> 8-12 min</span>
+                                            <span class="intensity low"><i class="fas fa-signal"></i> Calming</span>
+                                        </div>
+                                        <button class="therapy-btn" disabled>
+                                            <span class="btn-text">Start Session</span>
+                                            <i class="fas fa-play btn-icon"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Premium Programs -->
+                            <div class="therapy-category premium">
+                                <div class="category-title">
+                                    <i class="fas fa-crown category-icon premium-icon"></i>
+                                    <h3>Premium Programs</h3>
+                                    <span class="category-subtitle">Advanced multi-stage therapy sequences</span>
+                                </div>
+                                <div class="therapy-grid">
+                                    <div class="therapy-card premium-card" data-therapy="full-body">
+                                        <div class="premium-badge">Premium</div>
+                                        <div class="card-header">
+                                            <i class="fas fa-spa"></i>
+                                            <h4>Full Body Wellness</h4>
+                                        </div>
+                                        <p class="card-description">Complete relaxation journey from head to toe</p>
+                                        <div class="card-meta">
+                                            <span class="duration"><i class="fas fa-clock"></i> 20-30 min</span>
+                                            <span class="intensity medium"><i class="fas fa-signal"></i> Progressive</span>
+                                        </div>
+                                        <button class="therapy-btn premium-btn" disabled>
+                                            <span class="btn-text">Start Journey</span>
+                                            <i class="fas fa-play btn-icon"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="therapy-card premium-card" data-therapy="energy-boost">
+                                        <div class="premium-badge">Premium</div>
+                                        <div class="card-header">
+                                            <i class="fas fa-bolt"></i>
+                                            <h4>Energy Boost</h4>
+                                        </div>
+                                        <p class="card-description">Energizing patterns to increase alertness and vitality</p>
+                                        <div class="card-meta">
+                                            <span class="duration"><i class="fas fa-clock"></i> 8-12 min</span>
+                                            <span class="intensity high"><i class="fas fa-signal"></i> Energizing</span>
+                                        </div>
+                                        <button class="therapy-btn premium-btn" disabled>
+                                            <span class="btn-text">Start Boost</span>
+                                            <i class="fas fa-play btn-icon"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="therapy-card premium-card" data-therapy="meditation">
+                                        <div class="premium-badge">Premium</div>
+                                        <div class="card-header">
+                                            <i class="fas fa-om"></i>
+                                            <h4>Meditation Guide</h4>
+                                        </div>
+                                        <p class="card-description">Breathing-synchronized vibrations for deep meditation</p>
+                                        <div class="card-meta">
+                                            <span class="duration"><i class="fas fa-clock"></i> 10-20 min</span>
+                                            <span class="intensity very-low"><i class="fas fa-signal"></i> Mindful</span>
+                                        </div>
+                                        <button class="therapy-btn premium-btn" disabled>
+                                            <span class="btn-text">Begin Meditation</span>
+                                            <i class="fas fa-play btn-icon"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Session Progress Overlay -->
+                <div class="session-overlay" id="session-overlay">
+                    <div class="session-modal">
+                        <div class="session-header">
+                            <h3 id="session-title">Therapy Session in Progress</h3>
+                            <button class="close-session" id="close-session">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="session-content">
+                            <div class="progress-circle">
+                                <svg class="progress-ring" width="120" height="120">
+                                    <circle class="progress-ring-circle" stroke="#e5e7eb" stroke-width="8" fill="transparent" r="52" cx="60" cy="60"/>
+                                    <circle class="progress-ring-circle progress" stroke="#3b82f6" stroke-width="8" fill="transparent" r="52" cx="60" cy="60"/>
+                                </svg>
+                                <div class="progress-text">
+                                    <div class="progress-time" id="progress-time">00:00</div>
+                                    <div class="progress-label">Remaining</div>
+                                </div>
+                            </div>
+                            
+                            <div class="session-details">
+                                <div class="intensity-meter">
+                                    <label>Current Intensity</label>
+                                    <div class="meter-bar">
+                                        <div class="meter-fill" id="intensity-fill"></div>
+                                    </div>
+                                    <span class="intensity-value" id="intensity-value">0%</span>
+                                </div>
+                                
+                                <div class="session-stage">
+                                    <label>Current Stage</label>
+                                    <div class="stage-info" id="stage-info">Initializing...</div>
+                                </div>
+                            </div>
+
+                            <!-- Breathing Guide -->
+                            <div class="breathing-guide" id="breathing-guide" style="display: none;">
+                                <div class="breathing-circle">
+                                    <div class="breathing-animation" id="breathing-animation"></div>
+                                    <div class="breathing-instruction" id="breathing-instruction">Breathe In</div>
+                                </div>
+                                <div class="breathing-counter" id="breathing-counter">0 cycles</div>
+                            </div>
+                        </div>
+                        
+                        <div class="session-controls">
+                            <button class="control-btn pause-btn" id="pause-session">
+                                <i class="fas fa-pause"></i>
+                                Pause
+                            </button>
+                            <button class="control-btn stop-btn" id="stop-session">
+                                <i class="fas fa-stop"></i>
+                                Stop Session
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div class="tab-content" id="settings-tab">
+                <div class="settings-container">
+                    <h2>Settings & Preferences</h2>
+                    <!-- Settings content will be added here -->
+                    <div class="settings-grid">
+                        <div class="setting-group">
+                            <h3>General</h3>
+                            <div class="setting-item">
+                                <label>Theme</label>
+                                <select id="theme-select">
+                                    <option value="light">Light</option>
+                                    <option value="dark">Dark</option>
+                                    <option value="auto">Auto</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Welcome Guide -->
+        <div class="welcome-overlay" id="welcome-overlay">
+            <div class="welcome-modal">
+                <button class="close-welcome" id="close-welcome">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="welcome-content">
+                    <div class="welcome-icon">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    <h2>Welcome to TherapyController Pro</h2>
+                    <p class="welcome-intro">Your personal therapeutic massage system using gamepad vibration technology</p>
+                    
+                    <div class="welcome-steps">
+                        <div class="welcome-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h3>Connect Your Controller</h3>
+                                <p>Press any button to connect</p>
+                            </div>
+                        </div>
+                        <div class="welcome-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h3>Choose a Program</h3>
+                                <p>Select your therapy program</p>
+                            </div>
+                        </div>
+                        <div class="welcome-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h3>Relax & Enjoy</h3>
+                                <p>Set duration and start your session</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="welcome-actions">
+                        <label class="dont-show-again">
+                            <input type="checkbox" id="dont-show-welcome">
+                            <span>Don't show this again</span>
+                        </label>
+                        <button class="welcome-btn" id="start-using">
+                            <span>Get Started</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Help Popup -->
+        <div class="quick-help-popup" id="quick-help-popup">
+            <div class="help-popup-content">
+                <button class="close-help-popup" id="close-help-popup">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h3><i class="fas fa-question-circle"></i> Quick Help</h3>
+                <div class="help-sections">
+                    <div class="help-section">
+                        <h4>Controller Not Connecting?</h4>
+                        <ul>
+                            <li>Ensure controller is charged/plugged in</li>
+                            <li>Press any button to wake it up</li>
+                            <li>Try refreshing the page</li>
+                            <li>Check browser compatibility (Chrome/Edge recommended)</li>
+                        </ul>
+                    </div>
+                    <div class="help-section">
+                        <h4>No Vibration?</h4>
+                        <ul>
+                            <li>Not all controllers support vibration</li>
+                            <li>Use the "Quick Test" button to verify</li>
+                            <li>Check controller battery level</li>
+                        </ul>
+                    </div>
+                    <div class="help-section">
+                        <h4>Keyboard Shortcuts</h4>
+                        <ul>
+                            <li><kbd>Esc</kbd> - Emergency stop</li>
+                            <li><kbd>Space</kbd> - Pause/Resume session</li>
+                            <li><kbd>?</kbd> - Show this help</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div class="toast-container" id="toast-container"></div>
+
+        <!-- Session Duration Setup - Step 1: Duration -->
+        <div class="session-setup-overlay" id="duration-setup-overlay">
+            <div class="session-setup-modal">
+                <div class="setup-header">
+                    <div class="wizard-progress">
+                        <div class="progress-step active">1</div>
+                        <div class="progress-line"></div>
+                        <div class="progress-step">2</div>
+                    </div>
+                    <h2><i class="fas fa-hourglass-half"></i> Choose Duration</h2>
+                    <p class="setup-subtitle">How long would you like your therapy session?</p>
+                </div>
+                
+                <div class="setup-content">
+                    <div class="duration-presets">
+                        <button class="preset-btn" data-duration="300">
+                            <i class="fas fa-bolt"></i>
+                            <span class="preset-time">5 min</span>
+                            <span class="preset-label">Quick Relief</span>
+                        </button>
+                        <button class="preset-btn active" data-duration="600">
+                            <i class="fas fa-star"></i>
+                            <span class="preset-time">10 min</span>
+                            <span class="preset-label">Recommended</span>
+                        </button>
+                        <button class="preset-btn" data-duration="900">
+                            <i class="fas fa-heart"></i>
+                            <span class="preset-time">15 min</span>
+                            <span class="preset-label">Deep Session</span>
+                        </button>
+                        <button class="preset-btn" data-duration="1200">
+                            <i class="fas fa-spa"></i>
+                            <span class="preset-time">20 min</span>
+                            <span class="preset-label">Extended</span>
+                        </button>
+                        <button class="preset-btn" data-duration="1800">
+                            <i class="fas fa-infinity"></i>
+                            <span class="preset-time">30 min</span>
+                            <span class="preset-label">Maximum</span>
+                        </button>
+                    </div>
+                    <div class="custom-duration">
+                        <label>Or enter custom duration (minutes)</label>
+                        <input type="number" id="custom-duration" min="1" max="60" placeholder="Enter 1-60 minutes">
+                    </div>
+                </div>
+
+                <div class="setup-actions">
+                    <button class="setup-btn cancel-btn" id="cancel-duration">
+                        <i class="fas fa-times"></i>
+                        Cancel
+                    </button>
+                    <button class="setup-btn next-btn" id="next-to-breathing">
+                        <span>Next</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Session Setup Wizard - Step 2: Breathing Guide -->
+        <div class="session-setup-overlay" id="breathing-setup-overlay">
+            <div class="session-setup-modal">
+                <div class="setup-header">
+                    <div class="wizard-progress">
+                        <div class="progress-step completed">1</div>
+                        <div class="progress-line completed"></div>
+                        <div class="progress-step active">2</div>
+                    </div>
+                    <h2><i class="fas fa-wind"></i> Breathing Guide</h2>
+                    <p class="setup-subtitle">Would you like guided breathing exercises?</p>
+                </div>
+                
+                <div class="setup-content">
+                    <div class="breathing-choice">
+                        <button class="choice-card active" data-breathing="enabled">
+                            <div class="choice-icon">
+                                <i class="fas fa-lungs"></i>
+                            </div>
+                            <h3>Enable Breathing Guide</h3>
+                            <p>Synchronized breathing exercises for enhanced relaxation</p>
+                            <div class="choice-badge">Recommended</div>
+                        </button>
+                        
+                        <button class="choice-card" data-breathing="disabled">
+                            <div class="choice-icon">
+                                <i class="fas fa-ban"></i>
+                            </div>
+                            <h3>Skip Breathing Guide</h3>
+                            <p>Therapy vibrations only, no breathing exercises</p>
+                        </button>
+                    </div>
+
+                    <div class="breathing-patterns" id="breathing-patterns">
+                        <h3>Select Breathing Pattern</h3>
+                        <div class="pattern-grid">
+                            <label class="pattern-option">
+                                <input type="radio" name="breathing-pattern" value="4-7-8" checked>
+                                <div class="pattern-card">
+                                    <div class="pattern-name">4-7-8 Breathing</div>
+                                    <div class="pattern-desc">Breathe 4s | Hold 7s | Out 8s</div>
+                                    <div class="pattern-benefit">Best for relaxation & sleep</div>
+                                </div>
+                            </label>
+                            <label class="pattern-option">
+                                <input type="radio" name="breathing-pattern" value="box">
+                                <div class="pattern-card">
+                                    <div class="pattern-name">Box Breathing</div>
+                                    <div class="pattern-desc">In 4s | Hold 4s | Out 4s | Hold 4s</div>
+                                    <div class="pattern-benefit">Best for balance & focus</div>
+                                </div>
+                            </label>
+                            <label class="pattern-option">
+                                <input type="radio" name="breathing-pattern" value="4-4-4">
+                                <div class="pattern-card">
+                                    <div class="pattern-name">Equal Breathing</div>
+                                    <div class="pattern-desc">Breathe 4s | Hold 4s | Out 4s</div>
+                                    <div class="pattern-benefit">Best for concentration</div>
+                                </div>
+                            </label>
+                            <label class="pattern-option">
+                                <input type="radio" name="breathing-pattern" value="5-5">
+                                <div class="pattern-card">
+                                    <div class="pattern-name">Simple 5-5</div>
+                                    <div class="pattern-desc">Breathe 5s | Out 5s</div>
+                                    <div class="pattern-benefit">Best for beginners</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="setup-actions">
+                    <button class="setup-btn back-btn" id="back-to-duration">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Back</span>
+                    </button>
+                    <button class="setup-btn start-btn" id="start-session-final">
+                        <i class="fas fa-play"></i>
+                        Start Session
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script-pro.js"></script>
+</body>
+</html>
